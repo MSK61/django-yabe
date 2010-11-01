@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+"""displays the root page"""
+
 ############################################################
 #
 # Copyright 2010 Mohammed El-Afifi
@@ -20,11 +22,11 @@
 #
 # program:      yet another blog engine
 #
-# file:         urls.py
+# file:         views.py
 #
-# function:     URLconf
+# function:     root view
 #
-# description:  dispatches URL patterns to callback view functions
+# description:  displays the site root page
 #
 # author:       Mohammed Safwat (MS)
 #
@@ -34,25 +36,11 @@
 #
 ############################################################
 
-from django.conf.urls.defaults import *
-import settings
+from django import shortcuts
+def index(request):
+    """Display the site root page.
 
-# Uncomment the next two lines to enable the admin:
-# from django.contrib import admin
-# admin.autodiscover()
+    `request` is the request invoking this view.
 
-urlpatterns = patterns('',
-    # Example:
-    # (r'^yabe/', include('yabe.foo.urls')),
-
-    # Uncomment the admin/doc line below to enable admin documentation:
-    # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
-
-    # Uncomment the next line to enable the admin:
-    # (r'^admin/', include(admin.site.urls)),
-    (r'^$', 'views.index')
-)
-
-if settings.DEBUG:  # Serve static resources during development.
-    urlpatterns += patterns('', (r'^' + settings.MEDIA_URL + r'(.+)$',
-        'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}))
+    """
+    return shortcuts.render_to_response('index.html')
