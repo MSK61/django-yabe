@@ -42,49 +42,8 @@ Replace these with more appropriate tests for your application.
 """
 
 from app.models import Comment, Post, User
+from django.core import management
 from django.test import TestCase
-
-class FullTest(TestCase):
-
-    """Test making use of all objects loaded from a fixture"""
-
-    fixtures = ["data.yaml"]
-
-    def test(self):
-        """Test data from fixtures."""
-        # Count things
-        self.assertEqual(2, User.objects.count())
-        self.assertEqual(3, Post.objects.count())
-        self.assertEqual(3, Comment.objects.count())
-
-        # Try to connect as users
-        self.assertTrue(User.connect("bob@gmail.com", "secret"))
-        self.assertTrue(User.connect("jeff@gmail.com", "secret"))
-        self.assertFalse(User.connect("jeff@gmail.com", "badpassword"))
-        self.assertFalse(User.connect("tom@gmail.com", "secret"))
-
-        # Find all of Bob's posts
-        bobPosts = Post.objects.filter(author__email="bob@gmail.com")
-        self.assertEqual(2, bobPosts.count())
-
-        # Find all comments related to Bob's posts
-        bobComments = \
-            Comment.objects.filter(post__author__email="bob@gmail.com")
-        self.assertEqual(3, bobComments.count())
-
-        # Find the most recent post
-        frontPost = Post.objects.latest("postedAt")
-        self.assertTrue(frontPost)
-        self.assertEqual("About the model layer", frontPost.title)
-
-        # Check that this post has two comments
-        self.assertEqual(2, frontPost.comment_set.count())
-
-        # Post a new comment
-        frontPost.addComment("Jim", "Hello guys")
-        self.assertEqual(3, frontPost.comment_set.count())
-        self.assertEqual(4, Comment.objects.count())
-
 
 class SimpleTest(TestCase):
 
@@ -127,6 +86,44 @@ class SimpleTest(TestCase):
         self.assertEqual("My first post", firstPost.title)
         self.assertEqual("Hello world", firstPost.content)
         self.assertTrue(firstPost.postedAt)
+
+    def test_full(self):
+        """Test data from fixtures."""
+        import_data_cmd = "loaddata"
+        management.call_command(import_data_cmd, "data.yaml")
+
+        # Count things
+        self.assertEqual(2, User.objects.count())
+        self.assertEqual(3, Post.objects.count())
+        self.assertEqual(3, Comment.objects.count())
+
+        # Try to connect as users
+        self.assertTrue(User.connect("bob@gmail.com", "secret"))
+        self.assertTrue(User.connect("jeff@gmail.com", "secret"))
+        self.assertFalse(User.connect("jeff@gmail.com", "badpassword"))
+        self.assertFalse(User.connect("tom@gmail.com", "secret"))
+
+        # Find all of Bob's posts
+        bobPosts = Post.objects.filter(author__email="bob@gmail.com")
+        self.assertEqual(2, bobPosts.count())
+
+        # Find all comments related to Bob's posts
+        bobComments = \
+            Comment.objects.filter(post__author__email="bob@gmail.com")
+        self.assertEqual(3, bobComments.count())
+
+        # Find the most recent post
+        frontPost = Post.objects.latest("postedAt")
+        self.assertTrue(frontPost)
+        self.assertEqual("About the model layer", frontPost.title)
+
+        # Check that this post has two comments
+        self.assertEqual(2, frontPost.comment_set.count())
+
+        # Post a new comment
+        frontPost.addComment("Jim", "Hello guys")
+        self.assertEqual(3, frontPost.comment_set.count())
+        self.assertEqual(4, Comment.objects.count())
 
     def test_post_comments(self):
         """Test relations between posts and comments."""
