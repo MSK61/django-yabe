@@ -1,5 +1,12 @@
 # -*- coding: utf-8 -*-
 
+"""
+This file demonstrates two different styles of tests (one doctest and one
+unittest). These will both pass when you run "manage.py test".
+
+Replace these with more appropriate tests for your application.
+"""
+
 ############################################################
 #
 # Copyright 2010 Mohammed El-Afifi
@@ -34,18 +41,11 @@
 #
 ############################################################
 
-"""
-This file demonstrates two different styles of tests (one doctest and one
-unittest). These will both pass when you run "manage.py test".
-
-Replace these with more appropriate tests for your application.
-"""
-
 from app.models import Comment, Post, User
 from django.core import management
-from django.test import TestCase
+from django.test import TransactionTestCase
 
-class SimpleTest(TestCase):
+class SimpleTest(TransactionTestCase):
 
     """Model tests"""
 
@@ -171,6 +171,7 @@ class SimpleTest(TestCase):
         self.assertFalse(User.connect("tom@gmail.com", "secret"))
 
     def test_use_the_comments_relation(self):
+        """Test navigation from posts to comments."""
         # Create a new user and save it
         bob = User.objects.create(
             email="bob@gmail.com", password="secret", fullname="Bob")

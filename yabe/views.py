@@ -37,6 +37,7 @@
 ############################################################
 
 from django import shortcuts
+
 def index(request):
     """Display the site root page.
 

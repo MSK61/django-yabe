@@ -1,0 +1,44 @@
+-   fields: {email: bob@gmail.com, fullname: Bob, isAdmin: false, password: secret}
+    model: app.user
+    pk: 1
+-   fields: {email: jeff@gmail.com, fullname: Jeff, isAdmin: false, password: secret}
+    model: app.user
+    pk: 2
+-   fields: {author: 1, content: "The model has a central position in a Play! application.\
+            \ It is the domain-specific\n                    representation of the\
+            \ information on which the application operates.\n\n                 \
+            \   Martin fowler defines it as:\n    \n                    Responsible\
+            \ for representing concepts of the business, information about the\n \
+            \                   business situation, and business rules. State that\
+            \ reflects the business situation\n                    is controlled and\
+            \ used here, even though the technical details of storing it are\n   \
+            \                 delegated to the infrastructure. This layer is the heart\
+            \ of business software.", postedAt: !!timestamp '2009-06-14 00:00:00',
+        title: About the model layer}
+    model: app.post
+    pk: 1
+-   fields: {author: 1, content: 'Well, it''s just a test.', postedAt: !!timestamp '2009-03-25
+            00:00:00', title: Just a test of YABE}
+    model: app.post
+    pk: 2
+-   fields: {author: 2, content: "A Play! application follows the MVC architectural\
+            \ pattern as applied to the\n                    architecture of the Web.\n\
+            \n                    This pattern splits the application into separate\
+            \ layers: the Presentation\n                    layer and the Model layer.\
+            \ The Presentation layer is further split into a\n                   \
+            \ View and a Controller layer.", postedAt: !!timestamp '2009-06-06 00:00:00',
+        title: The MVC application}
+    model: app.post
+    pk: 3
+-   fields: {author: Guest, content: You are right !, post: 1, postedAt: !!timestamp '2009-06-14
+            00:00:00'}
+    model: app.comment
+    pk: 1
+-   fields: {author: Mike, content: I knew that ..., post: 1, postedAt: !!timestamp '2009-06-15
+            00:00:00'}
+    model: app.comment
+    pk: 2
+-   fields: {author: Tom, content: 'This post is useless ?', post: 2, postedAt: !!timestamp '2009-04-05
+            00:00:00'}
+    model: app.comment
+    pk: 3
