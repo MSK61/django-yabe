@@ -2,7 +2,7 @@
 
 ############################################################
 #
-# Copyright 2010 Mohammed El-Afifi
+# Copyright 2010, 2014 Mohammed El-Afifi
 # This file is part of yabe.
 #
 # yabe is free software: you can redistribute it and/or modify
